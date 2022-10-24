@@ -18,8 +18,8 @@ class Post(TimeStamedModel):
         on_delete=models.CASCADE,
         related_name="post_author",
     )
-    image = models.ImageField(blank=True)
-    caption = models.TextField(blank=True)
+    image = models.ImageField(blank=False)
+    caption = models.TextField(blank=False)
     image_likes = models.ManyToManyField(
         user_moedel.User, related_name="post_image_likes"
     )
@@ -38,4 +38,4 @@ class Comment(TimeStamedModel):
         on_delete=models.CASCADE,
         related_name="comment_post",
     )
-    contents = models.TextField(blank=True)
+    contents = models.TextField(blank=False)
