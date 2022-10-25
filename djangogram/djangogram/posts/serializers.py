@@ -3,15 +3,7 @@ from djangogram.users.models import User as user_model
 from rest_framework import serializers
 
 # models에서  서로 다른 클래스라면 각각  serializer를 만들어야한다. 쿼리셋 데이터를 파이썬 데이터로 만들어준다.
-
-
-class CommentSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = models.Comment
-        fields = (
-            "id",
-            "contents",
-        )
+# 순차적으올 생성 된다. 순서를 고려해야 한다.
 
 
 class FeedAuthorSerializer(serializers.ModelSerializer):
@@ -21,6 +13,18 @@ class FeedAuthorSerializer(serializers.ModelSerializer):
             "id",
             "username",
             "profile_photo",
+        )
+
+
+class CommentSerializer(serializers.ModelSerializer):
+    author = FeedAuthorSerializer()
+
+    class Meta:
+        model = models.Comment
+        fields = (
+            "id",
+            "author",
+            "contents",
         )
 
 
